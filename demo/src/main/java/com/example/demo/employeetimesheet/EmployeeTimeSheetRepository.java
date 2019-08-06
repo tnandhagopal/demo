@@ -1,9 +1,16 @@
-package com.example.demo.weekview;
+package com.example.demo.employeetimesheet;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.time.LocalDate;
+import java.util.List;
 
-import com.example.demo.employeedetails.EmployeeTimeSheet;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ETSRepository extends JpaRepository<EmployeeTimeSheet, Long> {
-		
+import com.example.demo.employeeproject.EmployeeProject;
+
+public interface EmployeeTimeSheetRepository extends CrudRepository<EmployeeTimeSheet, String> {
+	List<EmployeeTimeSheet> findByEmployeeProject(EmployeeProject employeeProject);
+
+	List<EmployeeTimeSheet> findByEmployeeProjectAndDateBetween(EmployeeProject employeeProject, LocalDate startDate,
+			LocalDate endDate);
+
 }

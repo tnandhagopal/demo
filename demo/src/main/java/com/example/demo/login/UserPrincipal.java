@@ -7,17 +7,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.employee.Employee;
+
 public class UserPrincipal implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Employee user;
 
 	public UserPrincipal(Employee user) {
 		super();
 		this.user = user;
+	}
+
+	public Employee getUser() {
+		return this.user;
 	}
 
 	@Override
@@ -58,7 +61,6 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-
 		return user.isEnabled();
 	}
 

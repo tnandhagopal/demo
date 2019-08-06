@@ -1,31 +1,101 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<title>Spring Boot Thymeleaf Hello World Example</title>
+<title>Time Sheet - week view</title>
+<style>
+a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+}
 
+a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.previous {
+	background-color: #99ffcc;
+	color: black;
+}
+
+.next {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.round {
+	border-radius: 50%;
+}
+</style>
 </head>
 
 <body>
-	<table>
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Author</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:if="${books.empty}">
-				<td colspan="2">No Books Available</td>
-			</tr>
-			<tr th:each="book : ${books}">
-				<td><span th:text="${book.title}"> Title </span></td>
-				<td><span th:text="${book.author}"> Author </span></td>
-			</tr>
-		</tbody>
-	</table>
+
+	<div class="header" style="background-color: #f1f1f1; padding: 15px;">
+		<p>
+			Hello, <span th:text="${username}">Testing</span>
+		</p>
+		<h2>Time Sheet Week View</h2>
+	</div>
+	<div class="container">
+		<a th:href="@{/weekview(action=previous)}" class="previous round">&#8249;</a>
+		<span th:text="${date}">Testing</span> <a
+			th:href="@{/weekview(action=next)}" class="next round">&#8250;</a>
+		<div class="row col-md-7 table-responsive">
+			<form action="#" th:action="@{/books/save}" th:object="${form}"
+				method="post">
+				<fieldset>
+
+					<table id="TimeSheetWeekView" class="table table-hover">
+						<thead>
+							<tr>
+								<th><span>Project</span></th>
+								<th><span th:text="${mon}">Mon</span></th>
+								<th><span th:text="${tus}">Tus</span></th>
+								<th><span th:text="${wed}">Wed</span></th>
+								<th><span th:text="${thu}">Thu</span></th>
+								<th><span th:text="${fri}">Mon</span></th>
+								<th><span th:text="${sat}">Mon</span></th>
+								<th><span th:text="${sun}">Mon</span></th>
+								<th><span>Total</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${weekviews.empty}">
+								<td colspan="2">No data Available</td>
+							</tr>
+							<tr th:each="weekview, rowStat: ${weekviews}"
+								th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
+								<td><span th:text="${weekview.project.name}">
+										Project </span></td>
+								<td><span th:text="${weekview.mon}"> Mon </span></td>
+								<td><span th:text="${weekview.tus}"> Tus </span></td>
+								<td><span th:text="${weekview.wed}"> Wed </span></td>
+								<td><span th:text="${weekview.thu}"> Thu </span></td>
+								<td><span th:text="${weekview.fri}"> Fri </span></td>
+								<td><span th:text="${weekview.sat}"> Sat </span></td>
+								<td><span th:text="${weekview.sun}"> Sun </span></td>
+								<td><span th:text="${weekview.total}"> Total </span></td>
+							</tr>
+						</tbody>
+					</table>
+					<input type="submit" id="submitButton" th:value="Save"> <input
+						type="reset" id="resetButton" name="reset" th:value="Reset" />
+				</fieldset>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

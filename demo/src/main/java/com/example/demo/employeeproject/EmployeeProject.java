@@ -1,4 +1,4 @@
-package com.example.demo.employeedetails;
+package com.example.demo.employeeproject;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.demo.login.Employee;
+import com.example.demo.employee.Employee;
+import com.example.demo.project.Project;
 
 @Entity
 @Table(name = "Employee_Project")
