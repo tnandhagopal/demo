@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.employee.Employee;
+import com.example.demo.project.Project;
 
 @Service
 public class EmployeeProjectService {
@@ -19,4 +20,7 @@ public class EmployeeProjectService {
 
 	}
 
+	public EmployeeProject getEmployeeProjectByEmployeeAndProject(Employee employee, Project project) {
+		return employeeProjectRepository.findByEmployeeAndProject(employee, project);
+	}
 }

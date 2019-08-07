@@ -23,6 +23,26 @@ public class WeekView {
 
 	private List<EmployeeTimeSheet> employeeTimeSheet;
 
+	public WeekView() {
+
+	}
+
+	public WeekView(int mon, int tus, int wed, int thu, int fri, int sat, int sun, Project project, int total,
+			LocalDate date, List<EmployeeTimeSheet> employeeTimeSheet) {
+		super();
+		this.mon = mon;
+		this.tus = tus;
+		this.wed = wed;
+		this.thu = thu;
+		this.fri = fri;
+		this.sat = sat;
+		this.sun = sun;
+		this.project = project;
+		this.total = total;
+		this.date = date;
+		this.employeeTimeSheet = employeeTimeSheet;
+	}
+
 	public WeekView(List<EmployeeTimeSheet> employeeTimeSheet, Project project, LocalDate date) {
 
 		System.out.println("employeeTimeSheet.size = " + employeeTimeSheet.size());

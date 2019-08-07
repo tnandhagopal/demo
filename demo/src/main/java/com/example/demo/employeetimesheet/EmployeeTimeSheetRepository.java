@@ -13,4 +13,5 @@ public interface EmployeeTimeSheetRepository extends CrudRepository<EmployeeTime
 	List<EmployeeTimeSheet> findByEmployeeProjectAndDateBetween(EmployeeProject employeeProject, LocalDate startDate,
 			LocalDate endDate);
 
+	EmployeeTimeSheet findByEmployeeProjectAndDate(EmployeeProject employeeProject, LocalDate date);
 }

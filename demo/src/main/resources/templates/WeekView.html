@@ -54,47 +54,43 @@ a:hover {
 		<span th:text="${date}">Testing</span> <a
 			th:href="@{/weekview(action=next)}" class="next round">&#8250;</a>
 		<div class="row col-md-7 table-responsive">
-			<form action="#" th:action="@{/books/save}" th:object="${form}"
-				method="post">
-				<fieldset>
 
-					<table id="TimeSheetWeekView" class="table table-hover">
-						<thead>
-							<tr>
-								<th><span>Project</span></th>
-								<th><span th:text="${mon}">Mon</span></th>
-								<th><span th:text="${tus}">Tus</span></th>
-								<th><span th:text="${wed}">Wed</span></th>
-								<th><span th:text="${thu}">Thu</span></th>
-								<th><span th:text="${fri}">Mon</span></th>
-								<th><span th:text="${sat}">Mon</span></th>
-								<th><span th:text="${sun}">Mon</span></th>
-								<th><span>Total</span></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:if="${weekviews.empty}">
-								<td colspan="2">No data Available</td>
-							</tr>
-							<tr th:each="weekview, rowStat: ${weekviews}"
-								th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
-								<td><span th:text="${weekview.project.name}">
-										Project </span></td>
-								<td><span th:text="${weekview.mon}"> Mon </span></td>
-								<td><span th:text="${weekview.tus}"> Tus </span></td>
-								<td><span th:text="${weekview.wed}"> Wed </span></td>
-								<td><span th:text="${weekview.thu}"> Thu </span></td>
-								<td><span th:text="${weekview.fri}"> Fri </span></td>
-								<td><span th:text="${weekview.sat}"> Sat </span></td>
-								<td><span th:text="${weekview.sun}"> Sun </span></td>
-								<td><span th:text="${weekview.total}"> Total </span></td>
-							</tr>
-						</tbody>
-					</table>
-					<input type="submit" id="submitButton" th:value="Save"> <input
-						type="reset" id="resetButton" name="reset" th:value="Reset" />
-				</fieldset>
-			</form>
+			<table id="TimeSheetWeekView" class="table table-hover">
+				<thead>
+					<tr>
+						<th><span>Project</span></th>
+						<th><span th:text="${mon}">Mon</span></th>
+						<th><span th:text="${tus}">Tus</span></th>
+						<th><span th:text="${wed}">Wed</span></th>
+						<th><span th:text="${thu}">Thu</span></th>
+						<th><span th:text="${fri}">Mon</span></th>
+						<th><span th:text="${sat}">Mon</span></th>
+						<th><span th:text="${sun}">Mon</span></th>
+						<th><span>Total</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${weekviews.empty}">
+						<td colspan="2">No data Available</td>
+					</tr>
+					<tr th:each="weekview, rowStat: ${weekviews}"
+						th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
+						<td><span th:text="${weekview.project.name}"> Project
+						</span></td>
+						<td><span th:text="${weekview.mon}"> Mon </span></td>
+						<td><span th:text="${weekview.tus}"> Tus </span></td>
+						<td><span th:text="${weekview.wed}"> Wed </span></td>
+						<td><span th:text="${weekview.thu}"> Thu </span></td>
+						<td><span th:text="${weekview.fri}"> Fri </span></td>
+						<td><span th:text="${weekview.sat}"> Sat </span></td>
+						<td><span th:text="${weekview.sun}"> Sun </span></td>
+						<td><span th:text="${weekview.total}"> Total </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit" id="submitButton" th:value="Save"> <input
+				type="reset" id="resetButton" name="reset" th:value="Reset" />
+
 		</div>
 	</div>
 </body>

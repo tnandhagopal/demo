@@ -51,6 +51,17 @@ public class EmployeeTimeSheet {
 	@Column(name = "ets_updated_by")
 	private String updatedBy;
 
+	public EmployeeTimeSheet() {
+
+	}
+
+	public EmployeeTimeSheet(EmployeeProject employeeProject, LocalDate date, int time) {
+		super();
+		this.date = date;
+		this.employeeProject = employeeProject;
+		this.time = time;
+	}
+
 	public int getId() {
 		return id;
 	}

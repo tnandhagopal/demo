@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<title>Time Sheet - week view</title>
+<style>
+a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+}
+
+a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.previous {
+	background-color: #99ffcc;
+	color: black;
+}
+
+.next {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.round {
+	border-radius: 50%;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="header" style="background-color: #f1f1f1; padding: 15px;">
+		<p>
+			Hello, <span th:text="${username}">Testing</span>
+		</p>
+		<h2>Time Sheet Week View</h2>
+	</div>
+	<div class="container">
+
+		<a th:href="@{/weekview/edit(action=previous)}" class="previous round">&#8249;</a>
+		<span th:text="${date}">Testing</span> <a
+			th:href="@{/weekview/edit(action=next)}" class="next round">&#8250;</a>
+			<a th:href="@{/weekview/edit}" class="current">Current week</a>
+		<div class="row">
+			<div class="col-md-16 table-responsive">
+				<form action="#" th:action="@{/weekview/save}" th:object="${form}"
+					method="post">
+					<fieldset>
+
+						<table id="TimeSheetWeekView" class="table table-hover">
+							<thead>
+								<tr class="d-flex">
+									<th class="col-md-2"><span>Project</span></th>
+									<th class="col-md-1"><span th:text="${mon}">Mon</span></th>
+									<th class="col-md-1"><span th:text="${tus}">Tus</span></th>
+									<th class="col-md-1"><span th:text="${wed}">Wed</span></th>
+									<th class="col-md-1"><span th:text="${thu}">Thu</span></th>
+									<th class="col-md-1"><span th:text="${fri}">Mon</span></th>
+									<th class="col-md-1"><span th:text="${sat}">Mon</span></th>
+									<th class="col-md-1"><span th:text="${sun}">Mon</span></th>
+									<th class="col-md-1"><span>Total</span></th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr class="d-flex"
+									th:each="weekview, itemStat: ${form.weekviews}">
+									<td class="col-md-2"><span
+										th:text="${weekview.project.name}"> Project</span></td>
+									<td><input hidden
+										th:name="|weekviews[${itemStat.index}].project.id|"
+										th:value="${weekview.project.id}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Mon + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].mon|"
+										th:value="${weekview.getMon()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Tus + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].tus|"
+										th:value="${weekview.getTus()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Wed + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].wed|"
+										th:value="${weekview.getWed()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Thu + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].thu|"
+										th:value="${weekview.getThu()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Fri + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].fri|"
+										th:value="${weekview.getFri()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Sat + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].sat|"
+										th:value="${weekview.getSat()}" /></td>
+									<td class="col-md-1"><input class="col-lg"
+										th:placeholder="Sun + ' ' + ${itemStat.count}"
+										th:name="|weekviews[${itemStat.index}].sun|"
+										th:value="${weekview.getSun()}" /></td>
+
+
+									<td class="col-md-1"><span th:text="${weekview.total}">
+											Total </span></td>
+								</tr>
+							</tbody>
+						</table>
+						<input type="submit" id="submitButton" th:value="Save"> <input
+							type="reset" id="resetButton" name="reset" th:value="Reset" />
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

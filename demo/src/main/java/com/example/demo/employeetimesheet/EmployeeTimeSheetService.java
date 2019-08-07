@@ -34,4 +34,17 @@ public class EmployeeTimeSheetService {
 		return retList;
 	}
 
+	public boolean setEmployeeTimeSheet(EmployeeProject employeeProject, LocalDate date, int time) {
+
+		EmployeeTimeSheet employeeTimeSheet = etsRepo.findByEmployeeProjectAndDate(employeeProject, date);
+
+		if (employeeTimeSheet != null) {
+			employeeTimeSheet.setTime(time);
+		} else {
+			employeeTimeSheet = new EmployeeTimeSheet(employeeProject, date, time);
+		}
+
+		etsRepo.save(employeeTimeSheet);
+		return true;
+	}
 }
