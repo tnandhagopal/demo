@@ -81,7 +81,7 @@
 					<fieldset>
 
 						<table id="TimeSheetWeekView"
-							class="table table-striped table-hover">
+							class="table table-striped table-hover" >
 							<thead class="thead-dark">
 								<tr>
 									<th><span>Project</span></th>
@@ -96,11 +96,14 @@
 									<th><span></span></th>
 								</tr>
 							</thead>
+							
+							
 							<tbody>
 
 								<tr th:each="weekview, itemStat: ${form.weekviews}"
 									th:style="${itemStat.odd} ? 'color: gray' : 'color: blue;'">
-									<td><span th:text="${weekview.project.name}">
+									<td><span
+										th:text="${weekview.employeeProject.project.name}">
 											Project</span></td>
 
 									<td><input class="col-lg"
@@ -135,10 +138,27 @@
 
 									<td><span th:text="${weekview.total}"> Total </span></td>
 									<td><input hidden="id"
-										th:name="|weekviews[${itemStat.index}].project.id|"
-										th:value="${weekview.project.id}" /></td>
+										th:name="|weekviews[${itemStat.index}].employeeProject.id|"
+										th:value="${weekview.employeeProject.id}" /></td>
+									
 								</tr>
 							</tbody>
+							
+							<tfoot class="thead-light">
+								<tr>
+									<th><span>Total</span></th>
+									<th><span th:text="${mon}">0</span></th>
+									<th><span th:text="${tus}">0</span></th>
+									<th><span th:text="${wed}">0</span></th>
+									<th><span th:text="${thu}">0</span></th>
+									<th><span th:text="${fri}">0</span></th>
+									<th><span th:text="${sat}">0</span></th>
+									<th><span th:text="${sun}">0</span></th>
+									<th><span th:text="${total}">0</span></th>
+									<th><span></span></th>
+								</tr>
+							</tfoot>
+							
 						</table>
 
 

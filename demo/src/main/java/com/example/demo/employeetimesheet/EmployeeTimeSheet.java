@@ -1,6 +1,7 @@
 package com.example.demo.employeetimesheet;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class EmployeeTimeSheet {
 
 	@Basic
 	@Column(name = "ets_created_date")
-	private LocalDate createdDate;
+	private LocalDateTime createdDate;
 
 	@Basic
 	@Column(name = "ets_created_by")
@@ -45,7 +46,7 @@ public class EmployeeTimeSheet {
 
 	@Basic
 	@Column(name = "ets_updated_date")
-	private LocalDate updatedDate;
+	private LocalDateTime updatedDate;
 
 	@Basic
 	@Column(name = "ets_updated_by")
@@ -60,6 +61,8 @@ public class EmployeeTimeSheet {
 		this.date = date;
 		this.employeeProject = employeeProject;
 		this.time = time;
+		this.createdDate = LocalDateTime.now();
+		this.createdBy = "ADMIN";
 	}
 
 	public int getId() {
@@ -103,11 +106,11 @@ public class EmployeeTimeSheet {
 		}
 	}
 
-	public LocalDate getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDate createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -119,11 +122,11 @@ public class EmployeeTimeSheet {
 		this.createdBy = createdBy;
 	}
 
-	public LocalDate getUpdatedDate() {
+	public LocalDateTime getUpdatedDate() {
 		return updatedDate;
 	}
 
-	public void setUpdatedDate(LocalDate updatedDate) {
+	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

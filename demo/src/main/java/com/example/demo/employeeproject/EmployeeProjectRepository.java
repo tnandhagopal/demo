@@ -9,8 +9,10 @@ import com.example.demo.employee.Employee;
 import com.example.demo.project.Project;
 
 @Repository
-public interface EmployeeProjectRepository extends CrudRepository<EmployeeProject, String> {
+public interface EmployeeProjectRepository extends CrudRepository<EmployeeProject, Number> {
 	List<EmployeeProject> findByEmployee(Employee employee);
 
 	EmployeeProject findByEmployeeAndProject(Employee employee, Project project);
+	
+	
 }

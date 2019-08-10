@@ -23,4 +23,8 @@ public class EmployeeProjectService {
 	public EmployeeProject getEmployeeProjectByEmployeeAndProject(Employee employee, Project project) {
 		return employeeProjectRepository.findByEmployeeAndProject(employee, project);
 	}
+
+	public EmployeeProject getEmployeeProjectById(int id) {
+		return employeeProjectRepository.findById(id).get();
+	}
 }

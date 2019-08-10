@@ -1,11 +1,8 @@
 package com.example.demo.weekview;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.List;
 
-import com.example.demo.employeetimesheet.EmployeeTimeSheet;
-import com.example.demo.project.Project;
+import com.example.demo.employeeproject.EmployeeProject;
 
 public class WeekView {
 
@@ -17,18 +14,25 @@ public class WeekView {
 	private int sat;
 	private int sun;
 
-	private Project project;
+	private EmployeeProject employeeProject;
+
+	// private Project project;
 	private int total;
 	private LocalDate date;
 
-	private List<EmployeeTimeSheet> employeeTimeSheet;
-
 	public WeekView() {
-
+		this.mon = 0;
+		this.tus = 0;
+		this.wed = 0;
+		this.thu = 0;
+		this.fri = 0;
+		this.sat = 0;
+		this.sun = 0;
+		this.total = 0;
 	}
 
-	public WeekView(int mon, int tus, int wed, int thu, int fri, int sat, int sun, Project project, int total,
-			LocalDate date, List<EmployeeTimeSheet> employeeTimeSheet) {
+	public WeekView(int mon, int tus, int wed, int thu, int fri, int sat, int sun, EmployeeProject employeeProject,
+			LocalDate date) {
 		super();
 		this.mon = mon;
 		this.tus = tus;
@@ -37,49 +41,17 @@ public class WeekView {
 		this.fri = fri;
 		this.sat = sat;
 		this.sun = sun;
-		this.project = project;
-		this.total = total;
+		this.employeeProject = employeeProject;
 		this.date = date;
-		this.employeeTimeSheet = employeeTimeSheet;
-	}
-
-	public WeekView(List<EmployeeTimeSheet> employeeTimeSheet, Project project, LocalDate date) {
-
-		System.out.println("employeeTimeSheet.size = " + employeeTimeSheet.size());
-
-		this.employeeTimeSheet = employeeTimeSheet;
-
-		this.sun = getTime(DayOfWeek.SUNDAY);
-
-		this.mon = getTime(DayOfWeek.MONDAY);
-
-		this.tus = getTime(DayOfWeek.TUESDAY);
-
-		this.wed = getTime(DayOfWeek.WEDNESDAY);
-
-		this.thu = getTime(DayOfWeek.THURSDAY);
-
-		this.fri = getTime(DayOfWeek.FRIDAY);
-
-		this.sat = getTime(DayOfWeek.SATURDAY);
-
-		this.project = project;
-
 		this.total = this.sun + this.mon + this.tus + this.wed + this.thu + this.fri + this.sat;
-
-		this.date = date;
 	}
 
-	private int getTime(DayOfWeek dayOfWeek) {
+	public EmployeeProject getEmployeeProject() {
+		return employeeProject;
+	}
 
-		EmployeeTimeSheet retETS = employeeTimeSheet.stream()
-				.filter(ets -> dayOfWeek.equals(ets.getDate().getDayOfWeek())).findFirst().orElse(null);
-
-		if (retETS != null)
-			return retETS.getTime();
-
-		return 0;
-
+	public void setEmployeeProject(EmployeeProject employeeProject) {
+		this.employeeProject = employeeProject;
 	}
 
 	public LocalDate getDate() {
@@ -146,15 +118,16 @@ public class WeekView {
 		this.sat = sat;
 	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
+//	public Project getProject() {
+//		return project;
+//	}
+//
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
 
 	public int getTotal() {
+		this.total = this.sun + this.mon + this.tus + this.wed + this.thu + this.fri + this.sat;
 		return total;
 	}
 

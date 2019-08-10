@@ -69,7 +69,7 @@ public class WeekViewController {
 
 		weekViewService.save(employee, form);
 
-		return "redirect:/weekview/edit";
+		return "redirect:/weekview/edit?action=same";
 
 	}
 

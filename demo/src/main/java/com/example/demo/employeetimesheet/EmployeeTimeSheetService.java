@@ -1,6 +1,7 @@
 package com.example.demo.employeetimesheet;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +36,38 @@ public class EmployeeTimeSheetService {
 	}
 
 	public boolean setEmployeeTimeSheet(EmployeeProject employeeProject, LocalDate date, int time) {
+		String txt = null;
+		boolean save = false;
+
+		System.out.println("setEmployeeTimeSheet : " + employeeProject + " : " + date + " : " + time);
 
 		EmployeeTimeSheet employeeTimeSheet = etsRepo.findByEmployeeProjectAndDate(employeeProject, date);
+		System.out.println("setEmployeeTimeSheet : " + employeeTimeSheet);
 
-		if (employeeTimeSheet != null) {
-			employeeTimeSheet.setTime(time);
-		} else {
+		if (employeeTimeSheet == null & time > 0) {
 			employeeTimeSheet = new EmployeeTimeSheet(employeeProject, date, time);
+			txt = "created";
+			save = true;
+		} else if (employeeTimeSheet != null) {
+
+			if (employeeTimeSheet.getTime() != time & time < 24) {
+				employeeTimeSheet.setTime(time);
+				employeeTimeSheet.setUpdatedBy("ADMIN");
+				employeeTimeSheet.setUpdatedDate(LocalDateTime.now());
+				txt = "updated";
+				save = true;
+			}
 		}
 
-		etsRepo.save(employeeTimeSheet);
+		if (save) {
+			employeeTimeSheet = etsRepo.save(employeeTimeSheet);
+			System.out.println(txt + " employeeTimeSheet id : " + employeeTimeSheet.getId());
+		} else if (employeeTimeSheet != null) {
+			System.out.println("not updated/inserted employeeTimeSheet id : " + employeeTimeSheet.getId());
+		} else {
+			System.out.println("not updated/inserted employeeTimeSheet id : ");
+		}
+
 		return true;
 	}
 }
