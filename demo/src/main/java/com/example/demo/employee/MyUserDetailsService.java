@@ -1,5 +1,7 @@
 package com.example.demo.employee;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,4 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		return new UserPrincipal(user);
 	}
 
+	public List<Employee> getAllEmployee() {
+		return userRepository.findAll();
+	}
 }

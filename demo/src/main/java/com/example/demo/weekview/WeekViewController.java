@@ -1,29 +1,27 @@
 package com.example.demo.weekview;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.employee.Employee;
 import com.example.demo.login.UserPrincipal;
-import com.example.demo.project.Project;
 
 @Controller
+@PreAuthorize("hasAnyRole('USER')")
 @RequestMapping("/weekview")
 public class WeekViewController {
 
@@ -56,11 +54,10 @@ public class WeekViewController {
 				"From " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd MMM YYYY"))
 						+ " to " + weekViewService.getFirstOfCurrentWeek().plusDays(6)
 								.format(DateTimeFormatter.ofPattern("dd MMM YYYY")));
-
 		model.addAttribute("username",
 				employee.getFirstName() + " " + employee.getSecondName() + " ( " + employee.getUserName() + " )");
-		System.out.println("user :" + principal.getName());
-		return "WeekView";
+
+		return "user/WeekView";
 
 	}
 
@@ -105,12 +102,12 @@ public class WeekViewController {
 				"From " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd MMM YYYY"))
 						+ " to " + weekViewService.getFirstOfCurrentWeek().plusDays(6)
 								.format(DateTimeFormatter.ofPattern("dd MMM YYYY")));
-
-		model.addAttribute("form", new WeekViewDto(weekviews));
 		model.addAttribute("username",
 				employee.getFirstName() + " " + employee.getSecondName() + " ( " + employee.getUserName() + " )");
-		System.out.println("user :" + principal.getName());
-		return "WeekViewEdit";
+
+		model.addAttribute("form", new WeekViewDto(weekviews));
+
+		return "user/WeekViewEdit";
 
 	}
 

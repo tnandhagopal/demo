@@ -1,15 +1,22 @@
 package com.example.demo.employee;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.persistence.JoinColumn;
+import com.example.demo.role.Role;
+import javax.persistence.ForeignKey;
 @Entity
 @Table(name = "Employee")
 public class Employee {
@@ -70,6 +77,18 @@ public class Employee {
 	@Basic
 	@Column(name = "emp_is_enabled", columnDefinition = "tinyint(1) default 1")
 	private boolean isEnabled;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "employee_role",foreignKey = @ForeignKey(name = "er_uk"), joinColumns = @JoinColumn(name = "er_emp_id"), inverseJoinColumns = @JoinColumn(name = "er_role_id"))
+	private Set<Role> roles;
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	public boolean isEnabled() {
 

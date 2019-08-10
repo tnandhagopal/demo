@@ -21,4 +21,15 @@ public class ProjectService {
 		return retList;
 	}
 
+	public boolean save(Project project) {
+
+		if (proRepo.findByCode(project.getCode()) == null) {
+			proRepo.save(project);
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 }

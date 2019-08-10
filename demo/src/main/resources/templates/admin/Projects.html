@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<title>Project</title>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<div th:replace="fragments/navigationbar :: navigationbar">&nbsp;</div>
+
+			<div class="col-10">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="header">
+							<h3>Employees</h3>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<table id="Project" class="table table-hover">
+							<thead>
+								<tr>
+									<th><span>ID</span></th>
+									<th><span>Code</span></th>
+									<th><span>Name</span></th>
+									<th><span>Created by</span></th>
+									<th><span>Created on</span></th>
+									<th><span>Last updated by</span></th>
+									<th><span>Last updated date</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${projects.empty}">
+									<td colspan="2">No data Available</td>
+								</tr>
+								<tr th:each="project, rowStat: ${projects}"
+									th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
+									<td><span th:text="${project.id}"> ID </span></td>
+									<td><span th:text="${project.code}"> Code </span></td>
+									<td><span th:text="${project.name}"> Name</span></td>
+									<td><span th:text="${project.createdBy}">Created by</span></td>
+									<td><span th:text="${project.createdDate}">Created
+											on</span></td>
+									<td><span th:text="${project.updatedBy}">Last
+											updated by</span></td>
+									<td><span th:text="${project.updatedDate}">Last
+											updated date</span></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="row">
+						<div class="container">
+							<input type="submit" id="submitButton" th:value="Save"> <input
+								type="reset" id="resetButton" name="reset" th:value="Reset" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
