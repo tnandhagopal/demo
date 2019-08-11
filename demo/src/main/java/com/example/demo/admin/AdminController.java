@@ -88,4 +88,32 @@ public class AdminController {
 			return "redirect:/admin/project/create";
 
 	}
+	
+	@GetMapping("/employee/create")
+	public String addEmployee(Principal principal, Model model) {
+
+		UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
+
+		Employee employee = ((UserPrincipal) userDetails).getUser();
+
+		model.addAttribute("username",
+				employee.getFirstName() + " " + employee.getSecondName() + " ( " + employee.getUserName() + " )");
+
+		model.addAttribute("employee", new Employee());
+
+		return "admin/createEmployee";
+
+	}
+
+	@PostMapping("/employee/create")
+	public String saveEmployee(@ModelAttribute Employee employee, Principal principal, Model model) {
+		employee.setCreatedBy(principal.getName());
+		employee.setCreatedDate(LocalDate.now());
+		//employee.setCode(project.getCode().toUpperCase());
+		if (employeeService.save(employee))
+			return "redirect:/admin/employees";
+		else
+			return "redirect:/admin/employee/create";
+
+	}
 }

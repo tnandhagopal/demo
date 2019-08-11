@@ -48,6 +48,8 @@
 
 
 					<div class="row">
+						<input class="form-control" id="myInput" type="text"
+							placeholder="Search.."> <br>
 						<table id="Employees" class="table table-hover">
 							<thead>
 								<tr>
@@ -65,7 +67,7 @@
 									<th><span>Last updated date</span></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="myTable">
 								<tr th:if="${employees.empty}">
 									<td colspan="2">No data Available</td>
 								</tr>
@@ -103,5 +105,30 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
 </html>

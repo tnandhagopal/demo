@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.example.demo.role.Role;
 
 @Entity
@@ -50,6 +52,7 @@ public class Employee {
 
 	@Basic
 	@Column(name = "emp_dob")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 
 	@Basic

@@ -52,7 +52,7 @@
 
 					<ul class="navbar-nav px-3">
 						<li class="nav-item text-nowrap"><a class="nav-link"
-							th:href="@{/weekview/edit}" th:text="${date}">Current week</a></li>
+							th:href="@{/weekview/edit}" th:text="${weekViewModel.currentWeek}">Current week</a></li>
 					</ul>
 
 					<ul class="navbar-nav px-3">
@@ -61,17 +61,7 @@
 					</ul>
 				</div>
 			</nav>
-			<!-- 
-			<a th:href="@{/weekview/edit(action=previous)}"
-				class="btn btn-primary stretched-link" data-toggle="tooltip"
-				data-placement="top" title="click here for previous week">&#8249;&#8249;</a>
-			<a th:text="${date}" th:href="@{/weekview/edit}"
-				class="btn btn-info" data-toggle="tooltip" data-placement="top"
-				title="click here for current week">Current week</a> 
-			<a	th:href="@{/weekview/edit(action=next)}"
-				class="btn btn-primary stretched-link" data-toggle="tooltip"
-				data-placement="top" title="click here for next week">&#8250;&#8250;</a>
-				 -->
+		
 		</div>
 
 		<div class="row">
@@ -81,23 +71,30 @@
 					<fieldset>
 
 						<table id="TimeSheetWeekView"
-							class="table table-striped table-hover" >
+							class="table table-striped table-hover">
 							<thead class="thead-dark">
 								<tr>
 									<th><span>Project</span></th>
-									<th><span th:text="${mon}">Mon</span></th>
-									<th><span th:text="${tus}">Tus</span></th>
-									<th><span th:text="${wed}">Wed</span></th>
-									<th><span th:text="${thu}">Thu</span></th>
-									<th><span th:text="${fri}">Mon</span></th>
-									<th><span th:text="${sat}">Mon</span></th>
-									<th><span th:text="${sun}">Mon</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.mon.head}">Mon</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.tus.head}">Tus</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.wed.head}">Wed</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.thu.head}">Thu</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.fri.head}">fri</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.sat.head}">Sat</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.sun.head}">Sun</span></th>
 									<th><span>Total</span></th>
 									<th><span></span></th>
 								</tr>
 							</thead>
-							
-							
+
+
 							<tbody>
 
 								<tr th:each="weekview, itemStat: ${form.weekviews}"
@@ -140,25 +137,33 @@
 									<td><input hidden="id"
 										th:name="|weekviews[${itemStat.index}].employeeProject.id|"
 										th:value="${weekview.employeeProject.id}" /></td>
-									
+
 								</tr>
 							</tbody>
-							
+
 							<tfoot class="thead-light">
 								<tr>
 									<th><span>Total</span></th>
-									<th><span th:text="${mon}">0</span></th>
-									<th><span th:text="${tus}">0</span></th>
-									<th><span th:text="${wed}">0</span></th>
-									<th><span th:text="${thu}">0</span></th>
-									<th><span th:text="${fri}">0</span></th>
-									<th><span th:text="${sat}">0</span></th>
-									<th><span th:text="${sun}">0</span></th>
-									<th><span th:text="${total}">0</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.mon.foot}">Mon</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.tus.foot}">Tus</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.wed.foot}">Wed</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.thu.foot}">Thu</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.fri.foot}">fri</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.sat.foot}">Sat</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.sun.foot}">Sun</span></th>
+									<th><span
+										th:text="${weekViewModel.weekViewTableCols.total.foot}">0</span></th>
 									<th><span></span></th>
 								</tr>
 							</tfoot>
-							
+
 						</table>
 
 

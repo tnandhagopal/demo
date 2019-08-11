@@ -30,7 +30,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("**/**").authenticated().anyRequest().permitAll()
 				//
-				.and().formLogin().permitAll()
+				.and().formLogin().permitAll().successForwardUrl("/home")
 				//
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 	}

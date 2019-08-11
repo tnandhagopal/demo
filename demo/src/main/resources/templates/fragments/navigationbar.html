@@ -32,34 +32,25 @@
 		<div class="container-fluid">
 			<nav class="sidebar">
 				<ul class="nav flex-column">
+					<li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
+
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/admin/projects}">Projects</a></li>
+
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/admin/employees}">Employees</a></li>
-						<li class="nav-item"><a class="nav-link"
-						th:href="@{/weekview/edit}">Week View</a></li>
-						<li class="nav-item"><a class="nav-link"
+
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/weekview/edit}">Time sheet</a></li>
+
+					<li class="nav-item"><a class="nav-link"
 						th:href="@{/admin/project/create}">add Project</a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/admin/employee/create}">add Employee</a></li>
 				</ul>
 			</nav>
 		</div>
 	</div>
-	<!--  
-	<div th:fragment="navigationbar">
-		<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-			<div class="sidebar-sticky">
-				<ul class="nav flex-column">
-
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/admin/projects}">Projects</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/admin/employees}">Empoyees</a></li>
-
-				</ul>
-
-			</div>
-		</nav>
-	</div>
-	-->
 </body>
 </html>

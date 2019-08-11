@@ -1,6 +1,7 @@
 package com.example.demo.weekview;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class WeekViewService {
 
 	}
 
-	public List<WeekView> getByEmployee(Employee employee, String action) {
+	public WeekViewModel getByEmployee(Employee employee, String action) {
 
 		System.out.println(action + " : " + firstOfCurrentWeek);
 
@@ -56,6 +57,8 @@ public class WeekViewService {
 
 		System.out.println(action + " : " + firstOfCurrentWeek);
 
+		WeekViewModel weekViewModel = new WeekViewModel();
+
 		List<WeekView> retList = new ArrayList<WeekView>();
 
 		employeeProjectService.getEmployeeProjectByEmployee(employee).stream()
@@ -65,16 +68,57 @@ public class WeekViewService {
 						firstOfCurrentWeek, employeeProject)));
 		;
 
-		
-		
 		retList.stream().forEach(e -> {
 			System.out.println(e.getEmployeeProject().getProject().getName() + "," + e.getMon() + "," + e.getTus() + ","
 					+ e.getWed() + "," + e.getThu() + "," + e.getFri() + "," + e.getSat() + "," + e.getSun());
-			
-			
+
+			weekViewModel.getWeekViewTableCols().getMon()
+					.setFoot(weekViewModel.getWeekViewTableCols().getMon().getFoot() + e.getMon());
+
+			weekViewModel.getWeekViewTableCols().getTus()
+					.setFoot(weekViewModel.getWeekViewTableCols().getTus().getFoot() + e.getTus());
+
+			weekViewModel.getWeekViewTableCols().getWed()
+					.setFoot(weekViewModel.getWeekViewTableCols().getWed().getFoot() + e.getWed());
+
+			weekViewModel.getWeekViewTableCols().getThu()
+					.setFoot(weekViewModel.getWeekViewTableCols().getThu().getFoot() + e.getThu());
+
+			weekViewModel.getWeekViewTableCols().getFri()
+					.setFoot(weekViewModel.getWeekViewTableCols().getFri().getFoot() + e.getFri());
+
+			weekViewModel.getWeekViewTableCols().getSat()
+					.setFoot(weekViewModel.getWeekViewTableCols().getSat().getFoot() + e.getSat());
+
+			weekViewModel.getWeekViewTableCols().getSun()
+					.setFoot(weekViewModel.getWeekViewTableCols().getSun().getFoot() + e.getSun());
+
+			weekViewModel.getWeekViewTableCols().getTotal()
+					.setFoot(weekViewModel.getWeekViewTableCols().getTotal().getFoot() + e.getTotal());
+
 		});
 
-		return retList;
+		weekViewModel.getWeekViewTableCols().getMon()
+				.setHead(firstOfCurrentWeek.format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getTus()
+				.setHead(firstOfCurrentWeek.plusDays(1).format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getWed()
+				.setHead(firstOfCurrentWeek.plusDays(2).format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getThu()
+				.setHead(firstOfCurrentWeek.plusDays(3).format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getFri()
+				.setHead(firstOfCurrentWeek.plusDays(4).format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getSat()
+				.setHead(firstOfCurrentWeek.plusDays(5).format(DateTimeFormatter.ofPattern("EEE dd")));
+		weekViewModel.getWeekViewTableCols().getSun()
+				.setHead(firstOfCurrentWeek.plusDays(6).format(DateTimeFormatter.ofPattern("EEE dd")));
+
+		weekViewModel.setCurrentWeek("From " + firstOfCurrentWeek.format(DateTimeFormatter.ofPattern("dd MMM YYYY"))
+				+ " to " + firstOfCurrentWeek.plusDays(6).format(DateTimeFormatter.ofPattern("dd MMM YYYY")));
+
+		weekViewModel.setWeekviewList(retList);
+
+		return weekViewModel;
 
 	}
 

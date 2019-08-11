@@ -77,35 +77,40 @@ public class WeekViewController {
 	public String edit(@RequestParam(value = "action", required = false) String action, Principal principal,
 			Model model) {
 
-		List<WeekView> weekviews = new ArrayList<>();
+		// List<WeekView> weekviews = new ArrayList<>();
 
 		UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
 
 		Employee employee = ((UserPrincipal) userDetails).getUser();
 
-		weekviews = weekViewService.getByEmployee(employee, action);
-		model.addAttribute("mon",
-				"Mon " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("tus",
-				"Thu " + weekViewService.getFirstOfCurrentWeek().plusDays(1).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("wed",
-				"Wed " + weekViewService.getFirstOfCurrentWeek().plusDays(2).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("thu",
-				"Thu " + weekViewService.getFirstOfCurrentWeek().plusDays(3).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("fri",
-				"Fri " + weekViewService.getFirstOfCurrentWeek().plusDays(4).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("sat",
-				"Sat " + weekViewService.getFirstOfCurrentWeek().plusDays(5).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("sun",
-				"Sun " + weekViewService.getFirstOfCurrentWeek().plusDays(6).format(DateTimeFormatter.ofPattern("dd")));
-		model.addAttribute("date",
-				"From " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd MMM YYYY"))
-						+ " to " + weekViewService.getFirstOfCurrentWeek().plusDays(6)
-								.format(DateTimeFormatter.ofPattern("dd MMM YYYY")));
+		WeekViewModel weekViewModel = weekViewService.getByEmployee(employee, action);
+
+		// weekviews = weekViewModel.getWeekviewList();
+
+		model.addAttribute("weekViewModel", weekViewModel);
+//		model.addAttribute("mon",
+//				"Mon " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("tus",
+//				"Thu " + weekViewService.getFirstOfCurrentWeek().plusDays(1).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("wed",
+//				"Wed " + weekViewService.getFirstOfCurrentWeek().plusDays(2).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("thu",
+//				"Thu " + weekViewService.getFirstOfCurrentWeek().plusDays(3).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("fri",
+//				"Fri " + weekViewService.getFirstOfCurrentWeek().plusDays(4).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("sat",
+//				"Sat " + weekViewService.getFirstOfCurrentWeek().plusDays(5).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("sun",
+//				"Sun " + weekViewService.getFirstOfCurrentWeek().plusDays(6).format(DateTimeFormatter.ofPattern("dd")));
+//		model.addAttribute("date",
+//				"From " + weekViewService.getFirstOfCurrentWeek().format(DateTimeFormatter.ofPattern("dd MMM YYYY"))
+//						+ " to " + weekViewService.getFirstOfCurrentWeek().plusDays(6)
+//								.format(DateTimeFormatter.ofPattern("dd MMM YYYY")));
+
 		model.addAttribute("username",
 				employee.getFirstName() + " " + employee.getSecondName() + " ( " + employee.getUserName() + " )");
 
-		model.addAttribute("form", new WeekViewDto(weekviews));
+		model.addAttribute("form", new WeekViewDto(weekViewModel.getWeekviewList()));
 
 		return "user/WeekViewEdit";
 

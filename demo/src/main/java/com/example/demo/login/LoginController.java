@@ -4,27 +4,44 @@ import java.security.Principal;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.employee.Employee;
 
 @Controller
-@ResponseBody
+@PreAuthorize("hasAnyRole('USER')")
 public class LoginController {
 
-	@RequestMapping("/login")
+	@RequestMapping("/home")
+	@GetMapping
 	public String login(Principal principal, Model model) {
+		System.out.println("home");
+		boolean hasAdminRole = false;
+		try {
 
-		UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		Employee employee = ((UserPrincipal) userDetails).getUser();
+			hasAdminRole = authentication.getAuthorities().stream()
+					.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+			if (hasAdminRole) {
+				UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
 
-		System.out.println("login");
-		return "hello";
+				Employee employee = ((UserPrincipal) userDetails).getUser();
+				model.addAttribute("username", employee.getFirstName() + " " + employee.getSecondName() + " ( "
+						+ employee.getUserName() + " )");
+
+				return "home/adminHome";
+			} else {
+				return "redirect:/weekview/edit";
+			}
+		} catch (Exception e) {
+			return "redirect:/home";
+		}
 
 	}
 

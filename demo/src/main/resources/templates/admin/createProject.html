@@ -46,25 +46,76 @@
 						</div>
 					</div>
 
-
 					<div class="row">
-						<form action="#" th:action="@{/admin/project/create}"
-							th:object="${project}" method="post">
-							<p>
-								Project Code: <input type="text" th:field="*{code}">
-							</p>
-							<p>
-								Name: <input type="text" th:field="*{name}">
-							</p>
-							<p>
-								<input type="submit" th:value="Submit"> <input
-									type="reset" th:value="Reset" />
-							</p>
-						</form>
+						<div class="col-2"></div>
+						<div class="col-10">
+							<form th:action="@{/admin/project/create}" th:object="${project}"
+								method="post" class="needs-validation was-validated" novalidate>
+								<div class="form-group">
+									<label for="code">Project Code:</label> <input type="text"
+										th:field="*{code}" class="form-control" id="code"
+										placeholder="Enter Project Code" name="code" required>
+									<div class="valid-feedback">Valid.</div>
+									<div class="invalid-feedback">Please fill out this field.</div>
+
+								</div>
+
+								<div class="form-group">
+									<label for="name">Project Name:</label> <input type="text"
+										th:field="*{name}" class="form-control" id="name"
+										placeholder="Enter Project Name" name="name" required>
+									<div class="valid-feedback">Valid.</div>
+									<div class="invalid-feedback">Please fill out this field.</div>
+
+								</div>
+
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="reset" class="btn btn-primary">Reset</button>
+
+							</form>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+			// Disable form submissions if there are invalid fields
+			(function() {
+				'use strict';
+				window
+						.addEventListener(
+								'load',
+								function() {
+									// Get the forms we want to add validation styles to
+									var forms = document
+											.getElementsByClassName('needs-validation');
+									// Loop over them and prevent submission
+									var validation = Array.prototype.filter
+											.call(
+													forms,
+													function(form) {
+														form
+																.addEventListener(
+																		'submit',
+																		function(
+																				event) {
+																			if (form
+																					.checkValidity() === false) {
+																				event
+																						.preventDefault();
+																				event
+																						.stopPropagation();
+																			}
+																			form.classList
+																					.add('was-validated');
+																		},
+																		false);
+													});
+								}, false);
+			})();
+		</script>
 </body>
 </html>
