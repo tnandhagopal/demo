@@ -4,7 +4,7 @@ public class WeekViewContext {
 
 	private String head;
 	private Integer foot;
-	
+
 	public WeekViewContext() {
 		this.head = new String();
 		this.foot = 0;
